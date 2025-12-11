@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zoojJUCVyK4=",
+  "dgSpecHash": "rgo2odO7cew=",
   "success": true,
-  "projectFilePath": "C:\\Users\\romak\\Desktop\\FlowBoard\\FlowBoardService\\fbAPI\\fbAPI\\fbAPI.csproj",
+  "projectFilePath": "C:\\Users\\romak\\Desktop\\FlowBoard\\FlowBoardService\\fbAPI\\fbapi\\fbAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\romak\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\romak\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -89,5 +89,15 @@
     "C:\\Users\\romak\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\romak\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Произошла ошибка при получении данных уязвимости пакета: Не удалось загрузить индекс службы для источника https://api.nuget.org/v3/index.json.",
+      "projectPath": "C:\\Users\\romak\\Desktop\\FlowBoard\\FlowBoardService\\fbAPI\\fbapi\\fbAPI.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\romak\\Desktop\\FlowBoard\\FlowBoardService\\fbAPI\\fbapi\\fbAPI.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

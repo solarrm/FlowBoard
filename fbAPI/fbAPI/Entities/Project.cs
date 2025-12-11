@@ -10,23 +10,26 @@ public class Project
     public int ProjectId { get; set; }
 
     [Required]
-    [MaxLength(200)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
 
     public DateOnly? StartDate { get; set; }
+
     public DateOnly? EndDate { get; set; }
 
     [Required]
-    [MaxLength(50)]
-    public string Status { get; set; }
+    public string Status { get; set; } = "planned";
 
     public int AuthorId { get; set; }
     [ForeignKey(nameof(AuthorId))]
-    public User Author { get; set; }
+    public User Author { get; set; } = null!;
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
 
     public ICollection<ProjectMember> Members { get; set; } = new List<ProjectMember>();
+
     public ICollection<Task> Tasks { get; set; } = new List<Task>();
-    public ICollection<Chat> Chats { get; set; } = new List<Chat>();
 }

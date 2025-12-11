@@ -11,13 +11,14 @@ public class TimeEntry
 
     public int TaskId { get; set; }
     [ForeignKey(nameof(TaskId))]
-    public Task Task { get; set; }
+    public Task Task { get; set; } = null!;
 
     public int UserId { get; set; }
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
+    public User User { get; set; } = null!;
 
     public DateTime StartTime { get; set; }
+
     public DateTime? EndTime { get; set; }
 
     public int? DurationMinutes { get; set; }

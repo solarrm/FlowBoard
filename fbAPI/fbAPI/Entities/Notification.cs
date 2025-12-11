@@ -11,26 +11,17 @@ public class Notification
 
     public int UserId { get; set; }
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
-
-    public int? TaskId { get; set; }
-    [ForeignKey(nameof(TaskId))]
-    public Task? Task { get; set; }
-
-    public int? NoteId { get; set; }
-    [ForeignKey(nameof(NoteId))]
-    public Note? Note { get; set; }
+    public User User { get; set; } = null!;
 
     [Required]
-    [MaxLength(50)]
-    public string Type { get; set; }
+    public string Type { get; set; } = null!;
 
     [Required]
-    public string Message { get; set; }
+    public string Message { get; set; } = null!;
+
+    public DateTime CreatedAt { get; set; }
 
     public DateTime? ScheduledAt { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime? ReadAt { get; set; }
 
-    public bool IsRead => ReadAt.HasValue;
+    public DateTime? ReadAt { get; set; }
 }

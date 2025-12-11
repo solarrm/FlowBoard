@@ -11,13 +11,14 @@ public class ProjectMember
 
     public int ProjectId { get; set; }
     [ForeignKey(nameof(ProjectId))]
-    public Project Project { get; set; }
+    public Project Project { get; set; } = null!;
 
     public int UserId { get; set; }
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
+    public User User { get; set; } = null!;
 
-    public string? ProjectRole { get; set; }
-    public string? Comment { get; set; }
+    [Required]
+    public string ProjectRole { get; set; } = "member";
+
     public DateTime JoinedAt { get; set; }
 }

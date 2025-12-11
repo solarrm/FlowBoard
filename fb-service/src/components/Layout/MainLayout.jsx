@@ -58,7 +58,7 @@ function MainLayout() {
                         label="Чаты"
                         sidebarOpen={sidebarOpen}
                     />
-                    {user?.role === 'Администратор' && (
+                    {user?.role === 'admin' && (
                         <NavLink
                             to="/admin"
                             icon="⚙️"

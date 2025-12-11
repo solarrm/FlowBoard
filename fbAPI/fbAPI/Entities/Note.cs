@@ -9,16 +9,20 @@ public class Note
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int NoteId { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-
     [Required]
-    [MaxLength(200)]
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
-    public string? Content { get; set; }
+    public string Content { get; set; } = string.Empty;
 
-    // Навигация
+    public int AuthorId { get; set; }
+    [ForeignKey(nameof(AuthorId))]
+    public User Author { get; set; } = null!;
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
+
     public ICollection<NoteShare> Shares { get; set; } = new List<NoteShare>();
+
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

@@ -9,20 +9,18 @@ public class Comment
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CommentId { get; set; }
 
+    public int NoteId { get; set; }
+    [ForeignKey(nameof(NoteId))]
+    public Note Note { get; set; } = null!;
+
     public int AuthorId { get; set; }
     [ForeignKey(nameof(AuthorId))]
-    public User Author { get; set; }
-
-    public int? TaskId { get; set; }
-    [ForeignKey(nameof(TaskId))]
-    public Task? Task { get; set; }
-
-    public int? NoteId { get; set; }
-    [ForeignKey(nameof(NoteId))]
-    public Note? Note { get; set; }
+    public User Author { get; set; } = null!;
 
     [Required]
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
 }

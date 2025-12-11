@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("fbAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d221cdbdd03a2d0444319c8d65c674f82f1fdfd")]
 [assembly: System.Reflection.AssemblyProductAttribute("fbAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("fbAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

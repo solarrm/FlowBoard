@@ -104,7 +104,7 @@ export const AuthProvider = ({ children }) => {
 
     const canEditProject = useCallback((project) => {
         if (!user) return false;
-        return user.role === 'Администратор' || project.authorId === user.userId;
+        return user.role === 'admin' || project.authorId === user.userId;
     }, [user]);
 
     const canEditNote = useCallback((noteShare) => {

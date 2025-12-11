@@ -96,19 +96,17 @@ namespace fbAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("NoteId")
+                    b.Property<int>("NoteId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TaskId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("CommentId");
 
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("NoteId");
-
-                    b.HasIndex("TaskId");
 
                     b.ToTable("Comments");
                 });
@@ -298,7 +296,11 @@ namespace fbAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NoteId"));
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
@@ -306,13 +308,14 @@ namespace fbAPI.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("NoteId");
+
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Notes");
                 });
@@ -333,6 +336,9 @@ namespace fbAPI.Migrations
 
                     b.Property<int>("NoteId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("SharedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -362,31 +368,20 @@ namespace fbAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("NoteId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("ReadAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("ScheduledAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("TaskId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NoteId");
-
-                    b.HasIndex("TaskId");
 
                     b.HasIndex("UserId");
 
@@ -404,6 +399,9 @@ namespace fbAPI.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -412,16 +410,17 @@ namespace fbAPI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("ProjectId");
 
@@ -438,9 +437,6 @@ namespace fbAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MemberId"));
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("JoinedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -448,6 +444,7 @@ namespace fbAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("ProjectRole")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
@@ -511,19 +508,46 @@ namespace fbAPI.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("TaskId");
 
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("fbAPI.Entities.TaskAssignment", b =>
+                {
+                    b.Property<int>("AssignmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AssignmentId"));
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AssignmentId");
+
+                    b.HasIndex("TaskId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TaskAssignments");
                 });
 
             modelBuilder.Entity("fbAPI.Entities.TimeEntry", b =>
@@ -567,10 +591,10 @@ namespace fbAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Country")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<DateOnly?>("DateOfBirth")
+                    b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
                     b.Property<DateTime>("DateTimeOfRegistration")
@@ -578,16 +602,14 @@ namespace fbAPI.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -604,8 +626,7 @@ namespace fbAPI.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<byte[]>("Salt")
                         .IsRequired()
@@ -613,8 +634,7 @@ namespace fbAPI.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId");
 
@@ -659,7 +679,7 @@ namespace fbAPI.Migrations
             modelBuilder.Entity("fbAPI.Entities.Chat", b =>
                 {
                     b.HasOne("fbAPI.Entities.Project", "Project")
-                        .WithMany("Chats")
+                        .WithMany()
                         .HasForeignKey("ProjectId");
 
                     b.Navigation("Project");
@@ -674,7 +694,7 @@ namespace fbAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("fbAPI.Entities.User", "User")
-                        .WithMany("ChatMembers")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -694,17 +714,13 @@ namespace fbAPI.Migrations
 
                     b.HasOne("fbAPI.Entities.Note", "Note")
                         .WithMany("Comments")
-                        .HasForeignKey("NoteId");
-
-                    b.HasOne("fbAPI.Entities.Task", "Task")
-                        .WithMany("Comments")
-                        .HasForeignKey("TaskId");
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
 
                     b.Navigation("Note");
-
-                    b.Navigation("Task");
                 });
 
             modelBuilder.Entity("fbAPI.Entities.FAQ", b =>
@@ -746,7 +762,7 @@ namespace fbAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("fbAPI.Entities.User", "Sender")
-                        .WithMany("SentMessages")
+                        .WithMany()
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -767,6 +783,17 @@ namespace fbAPI.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("fbAPI.Entities.Note", b =>
+                {
+                    b.HasOne("fbAPI.Entities.User", "Author")
+                        .WithMany("Notes")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("fbAPI.Entities.NoteShare", b =>
                 {
                     b.HasOne("fbAPI.Entities.Note", "Note")
@@ -776,7 +803,7 @@ namespace fbAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("fbAPI.Entities.User", "User")
-                        .WithMany("NoteShares")
+                        .WithMany("SharedNotes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -788,23 +815,11 @@ namespace fbAPI.Migrations
 
             modelBuilder.Entity("fbAPI.Entities.Notification", b =>
                 {
-                    b.HasOne("fbAPI.Entities.Note", "Note")
-                        .WithMany()
-                        .HasForeignKey("NoteId");
-
-                    b.HasOne("fbAPI.Entities.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId");
-
                     b.HasOne("fbAPI.Entities.User", "User")
                         .WithMany("Notifications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Note");
-
-                    b.Navigation("Task");
 
                     b.Navigation("User");
                 });
@@ -812,7 +827,7 @@ namespace fbAPI.Migrations
             modelBuilder.Entity("fbAPI.Entities.Project", b =>
                 {
                     b.HasOne("fbAPI.Entities.User", "Author")
-                        .WithMany("OwnProjects")
+                        .WithMany("Projects")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -850,6 +865,25 @@ namespace fbAPI.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("fbAPI.Entities.TaskAssignment", b =>
+                {
+                    b.HasOne("fbAPI.Entities.Task", "Task")
+                        .WithMany("Assignments")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("fbAPI.Entities.User", "User")
+                        .WithMany("TaskAssignments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Task");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("fbAPI.Entities.TimeEntry", b =>
                 {
                     b.HasOne("fbAPI.Entities.Task", "Task")
@@ -878,7 +912,7 @@ namespace fbAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("fbAPI.Entities.User", "User")
-                        .WithMany("UserTariffs")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -914,8 +948,6 @@ namespace fbAPI.Migrations
 
             modelBuilder.Entity("fbAPI.Entities.Project", b =>
                 {
-                    b.Navigation("Chats");
-
                     b.Navigation("Members");
 
                     b.Navigation("Tasks");
@@ -928,30 +960,28 @@ namespace fbAPI.Migrations
 
             modelBuilder.Entity("fbAPI.Entities.Task", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Assignments");
 
                     b.Navigation("TimeEntries");
                 });
 
             modelBuilder.Entity("fbAPI.Entities.User", b =>
                 {
-                    b.Navigation("ChatMembers");
-
                     b.Navigation("Comments");
 
-                    b.Navigation("NoteShares");
+                    b.Navigation("Notes");
 
                     b.Navigation("Notifications");
 
-                    b.Navigation("OwnProjects");
-
                     b.Navigation("ProjectMemberships");
 
-                    b.Navigation("SentMessages");
+                    b.Navigation("Projects");
+
+                    b.Navigation("SharedNotes");
+
+                    b.Navigation("TaskAssignments");
 
                     b.Navigation("TimeEntries");
-
-                    b.Navigation("UserTariffs");
                 });
 #pragma warning restore 612, 618
         }

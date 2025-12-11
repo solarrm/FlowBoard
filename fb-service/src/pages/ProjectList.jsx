@@ -63,7 +63,7 @@ function ProjectList() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">📁 Проекты</h1>
-                {(user?.role === 'Администратор' || user?.role === 'Менеджер') && (
+                {(user?.role === 'admin' || user?.role === 'manager') && (
                     <button
                         onClick={handleCreateProject}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
@@ -117,7 +117,7 @@ function ProjectList() {
                                     </p>
                                 )}
                             </div>
-                            {(user?.role === 'Администратор' ||
+                            {(user?.role === 'admin' ||
                                 project.authorId === user?.userId) && (
                                     <button
                                         onClick={() => handleDeleteProject(project.projectId)}

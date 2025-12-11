@@ -15,6 +15,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<ProjectMember> ProjectMembers { get; set; }
 
     public DbSet<Entities.Task> Tasks { get; set; }
+    public DbSet<TaskAssignment> TaskAssignments { get; set; }
     public DbSet<TimeEntry> TimeEntries { get; set; }
 
     public DbSet<Note> Notes { get; set; }

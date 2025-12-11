@@ -11,12 +11,15 @@ public class NoteShare
 
     public int NoteId { get; set; }
     [ForeignKey(nameof(NoteId))]
-    public Note Note { get; set; }
+    public Note Note { get; set; } = null!;
 
     public int UserId { get; set; }
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
+    public User User { get; set; } = null!;
 
-    public bool CanEdit { get; set; }
-    public bool CanComment { get; set; }
+    public bool CanEdit { get; set; } = false;
+
+    public bool CanComment { get; set; } = true;
+
+    public DateTime SharedAt { get; set; }
 }

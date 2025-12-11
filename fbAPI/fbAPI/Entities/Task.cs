@@ -9,25 +9,27 @@ public class Task
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int TaskId { get; set; }
 
+    public int ProjectId { get; set; }
+    [ForeignKey(nameof(ProjectId))]
+    public Project Project { get; set; } = null!;
+
     [Required]
-    [MaxLength(200)]
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     public string? Description { get; set; }
 
     [Required]
-    [MaxLength(50)]
-    public string Status { get; set; }
+    public string Status { get; set; } = "todo";
 
-    public int Priority { get; set; }
+    public int Priority { get; set; } = 2;
 
-    public DateTime CreatedAt { get; set; }
     public DateTime? DueDate { get; set; }
 
-    public int ProjectId { get; set; }
-    [ForeignKey(nameof(ProjectId))]
-    public Project Project { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
+
+    public ICollection<TaskAssignment> Assignments { get; set; } = new List<TaskAssignment>();
 
     public ICollection<TimeEntry> TimeEntries { get; set; } = new List<TimeEntry>();
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

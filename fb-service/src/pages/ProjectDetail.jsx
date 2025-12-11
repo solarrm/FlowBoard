@@ -44,7 +44,7 @@ function ProjectDetail() {
     };
 
     const canManageProject =
-        user?.role === 'Администратор' || project?.authorId === user?.userId;
+        user?.role === 'admin' || project?.authorId === user?.userId;
 
     const handleProjectChange = (e) => {
         const { name, value } = e.target;

@@ -166,3 +166,4 @@ C:\Users\romak\Desktop\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\net9.0\f
 C:\Users\romak\Desktop\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\net9.0\fbAPI.genruntimeconfig.cache
 C:\Users\romak\Desktop\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\net9.0\ref\fbAPI.dll
 C:\Users\romak\Desktop\FlowBoard\FlowBoardService\fbAPI\fbapi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\romak\Desktop\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\net9.0\fbAPI.sourcelink.json
