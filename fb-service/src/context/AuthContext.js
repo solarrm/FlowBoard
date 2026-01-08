@@ -1,11 +1,21 @@
 import { createContext, useState, useEffect, useCallback } from 'react';
 import api from '../api/axiosInstance';
 import { AUTH_ENDPOINTS, USER_ENDPOINTS } from '../api/endpoints';
+import { useContext } from 'react';
 
 export const AuthContext = createContext();
 
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -16,32 +26,36 @@ export const AuthProvider = ({ children }) => {
                 .then((res) => {
                     setUser(res.data);
                     setError(null);
+                    setIsAuthenticated(true);
                 })
                 .catch((err) => {
                     console.error('Ошибка при загрузке профиля:', err);
                     localStorage.removeItem('token');
                     localStorage.removeItem('refreshToken');
                     setError('Ошибка аутентификации');
+                    setIsAuthenticated(false);
                 })
                 .finally(() => setLoading(false));
         } else {
             setLoading(false);
+            setIsAuthenticated(false);
         }
     }, []);
 
-    const login = useCallback(async (login, password) => {
+    const login = useCallback(async (LoginOrEmail, Password) => {
         setLoading(true);
         setError(null);
         try {
             const response = await api.post(AUTH_ENDPOINTS.LOGIN, {
-                login,
-                password,
+                LoginOrEmail,
+                Password,
             });
 
             const { token, refreshToken, user: userData } = response.data;
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
             setUser(userData);
+            setIsAuthenticated(true);
             return userData;
         } catch (err) {
             const errorMessage = err.response?.data?.message || 'Ошибка при входе';
@@ -90,6 +104,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.removeItem('refreshToken');
             setUser(null);
             setError(null);
+            setIsAuthenticated(false);
         } catch (err) {
             console.error('Ошибка при выходе:', err);
         } finally {
@@ -122,7 +137,7 @@ export const AuthProvider = ({ children }) => {
         hasRole,
         canEditProject,
         canEditNote,
-        isAuthenticated: !!user,
+        isAuthenticated,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

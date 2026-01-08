@@ -10,7 +10,7 @@ const MainLayout = ({ user }) => {
                 ? 'bg-gray-900 text-white'
                 : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100'
             }`}>
-            <header className={`bg-white/80 backdrop-blur-xl border-b ${theme === 'dark'
+            <header className={`bg-white/700 backdrop-blur-xl border-b ${theme === 'dark'
                     ? 'border-gray-700/50 bg-gray-800/80'
                     : 'border-gray-100'
                 } sticky top-0 z-50 shadow-xl`}>

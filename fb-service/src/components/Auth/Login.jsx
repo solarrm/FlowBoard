@@ -4,8 +4,8 @@ import { useAuth } from '../../hooks/useAuth';
 
 function Login() {
     const [formData, setFormData] = useState({
-        login: '',
-        password: '',
+        LoginOrEmail: '',
+        Password: '',
     });
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,6 @@ function Login() {
             ...prev,
             [name]: value,
         }));
-        // Очистка ошибки при изменении
         if (errors[name]) {
             setErrors((prev) => {
                 const newErrors = { ...prev };
@@ -34,8 +33,8 @@ function Login() {
 
     const validate = () => {
         const newErrors = {};
-        if (!formData.login.trim()) newErrors.login = 'Логин обязателен';
-        if (!formData.password.trim()) newErrors.password = 'Пароль обязателен';
+        if (!formData.LoginOrEmail.trim()) newErrors.LoginOrEmail = 'Логин/Email обязателен';
+        if (!formData.Password.trim()) newErrors.Password = 'Пароль обязателен';
         return newErrors;
     };
 
@@ -50,7 +49,7 @@ function Login() {
 
         setIsLoading(true);
         try {
-            await login(formData.login, formData.password);
+            await login(formData.LoginOrEmail, formData.Password);
             navigate('/dashboard');
         } catch (error) {
             setErrors({ submit: error.response?.data?.message || 'Ошибка при входе' });
@@ -82,13 +81,13 @@ function Login() {
                         </label>
                         <input
                             type="text"
-                            name="login"
-                            value={formData.login}
+                            name="LoginOrEmail"
+                            value={formData.LoginOrEmail}
                             onChange={handleChange}
                             className={inputClasses}
                             placeholder="Введите логин"
                         />
-                        {errors.login && <p className={errorClasses}>{errors.login}</p>}
+                        {errors.LoginOrEmail && <p className={errorClasses}>{errors.LoginOrEmail}</p>}
                     </div>
 
                     <div>
@@ -97,13 +96,13 @@ function Login() {
                         </label>
                         <input
                             type="password"
-                            name="password"
-                            value={formData.password}
+                            name="Password"
+                            value={formData.Password}
                             onChange={handleChange}
                             className={inputClasses}
                             placeholder="Введите пароль"
                         />
-                        {errors.password && <p className={errorClasses}>{errors.password}</p>}
+                        {errors.Password && <p className={errorClasses}>{errors.Password}</p>}
                     </div>
 
                     <button
