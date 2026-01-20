@@ -124,7 +124,7 @@ function ProjectList() {
                                         className="mt-3 text-red-600 dark:text-red-400 hover:underline self-end text-sm"
                                     >
                                         🗑️ Удалить
-                                    </button>
+                                    </button>   
                                 )}
                         </div>
                     ))}

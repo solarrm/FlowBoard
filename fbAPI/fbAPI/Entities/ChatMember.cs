@@ -18,4 +18,5 @@ public class ChatMember
     public User User { get; set; }
 
     public DateTime JoinedAt { get; set; }
+    public bool IsOnline { get; set; } = false;
 }

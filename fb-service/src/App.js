@@ -14,6 +14,7 @@ import TaskDetail from './pages/TaskDetail';
 import NotesList from './pages/NotesList';
 import NoteEditor from './pages/NoteEditor';
 import ChatList from './pages/ChatList';
+import ChatRoom from './pages/ChatRoom';
 import AdminPanel from './pages/AdminPanel';
 
 function AppContent() {
@@ -52,6 +53,8 @@ function AppContent() {
                 <Route path="notes" element={<NotesList />} />
                 <Route path="notes/:id" element={<NoteEditor />} />
                 <Route path="chats" element={<ChatList />} />
+                <Route path="chats/:roomId" element={<ChatRoom />} />
+
                 <Route path="admin/*" element={<AdminPanel />} />
             </Route>
 

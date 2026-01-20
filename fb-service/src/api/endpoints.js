@@ -54,16 +54,10 @@ export const NOTES_ENDPOINTS = {
 };
 
 export const CHAT_ENDPOINTS = {
-    GET_ALL: '/api/chats',
-    GET_BY_ID: '/api/chats/:id',
-    CREATE: '/api/chats',
-    UPDATE: '/api/chats/:id',
-    DELETE: '/api/chats/:id',
-    GET_MEMBERS: '/api/chats/:id/members',
-    ADD_MEMBER: '/api/chats/:id/members',
-    REMOVE_MEMBER: '/api/chats/:id/members/:memberId',
-    GET_MESSAGES: '/api/chats/:id/messages',
-    SEND_MESSAGE: '/api/chats/:id/messages',
+    GET_ROOMS: '/api/chat/rooms',
+    CREATE_ROOM: '/api/chat/rooms',
+    GET_MESSAGES: '/api/chat/{roomId}/messages',
+    SEND_MESSAGE: '/api/chat/{roomId}/messages'
 };
 
 export const COMMENT_ENDPOINTS = {
