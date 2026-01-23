@@ -15,7 +15,9 @@ import NotesList from './pages/NotesList';
 import NoteEditor from './pages/NoteEditor';
 import ChatList from './pages/ChatList';
 import ChatRoom from './pages/ChatRoom';
-import AdminPanel from './pages/AdminPanel';
+import AdminPanel from './pages/admin/AdminPanel';
+import AdminLayout from "./components/Layout/AdminLayout";
+import AdminUsersPage from "./pages/admin/AdminUsersPage";
 
 function AppContent() {
     const { isAuthenticated, user, loading } = useAuth();
@@ -55,7 +57,10 @@ function AppContent() {
                 <Route path="chats" element={<ChatList />} />
                 <Route path="chats/:roomId" element={<ChatRoom />} />
 
-                <Route path="admin/*" element={<AdminPanel />} />
+                <Route path="/admin" element={<AdminLayout />}>
+                    <Route path="users" element={<AdminUsersPage />} />
+                </Route>
+
             </Route>
 
             <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/auth/login"} replace />} />

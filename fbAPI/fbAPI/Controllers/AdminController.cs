@@ -42,6 +42,10 @@ public class AdminController : ControllerBase
     [HttpPut("users/{id}/role")]
     public async Task<IActionResult> UpdateUserRole(int id, [FromBody] UpdateUserRoleRequest request)
     {
+        var currentAdminId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        if (currentAdminId == id)
+            return BadRequest(new { message = "Нельзя изменить роль самому себе" });
+
         var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == id);
         if (user == null)
             return NotFound(new { message = "Пользователь не найден" });
@@ -63,4 +67,42 @@ public class AdminController : ControllerBase
             user.IsActive
         });
     }
+
+    [HttpPut("users/{id}/status")]
+    public async Task<IActionResult> UpdateUserStatus(
+    int id,
+    [FromBody] UpdateUserStatusRequest request)
+    {
+        var currentAdminId = int.Parse(
+            User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+        );
+
+        if (currentAdminId == id)
+            return BadRequest(new { message = "Нельзя изменить статус своего аккаунта" });
+
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+            return NotFound(new { message = "Пользователь не найден" });
+
+        user.IsActive = request.IsActive;
+
+        if (!request.IsActive)
+        {
+            user.RefreshToken = null;
+            user.RefreshTokenExpiryTime = null;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new
+        {
+            user.UserId,
+            user.Email,
+            user.Login,
+            user.UserName,
+            user.Role,
+            user.IsActive
+        });
+    }
+
 }
