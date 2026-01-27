@@ -34,7 +34,7 @@ public class AdminController : ControllerBase
                 u.IsActive,
                 u.DateTimeOfRegistration
             })
-            .ToListAsync();
+            .AsNoTracking().ToListAsync();
 
         return Ok(users);
     }

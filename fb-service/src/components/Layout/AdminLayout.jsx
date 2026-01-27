@@ -19,8 +19,8 @@ const AdminLayout = () => {
 
                 <nav style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                     <Link to="/admin/users">Users</Link>
-                    {/* <Link to="/admin/projects">Projects</Link> */}
-                    {/* <Link to="/admin/faq">FAQ</Link> */}
+                    <Link to="/admin/faq">FAQ</Link>
+                    {/* <Link to="/admin/news">FAQ</Link> */}
                 </nav>
             </aside>
 

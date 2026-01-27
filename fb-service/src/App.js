@@ -18,6 +18,7 @@ import ChatRoom from './pages/ChatRoom';
 import AdminPanel from './pages/admin/AdminPanel';
 import AdminLayout from "./components/Layout/AdminLayout";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
+import AdminFaqPage from "./pages/admin/AdminFaqPage";
 
 function AppContent() {
     const { isAuthenticated, user, loading } = useAuth();
@@ -59,6 +60,7 @@ function AppContent() {
 
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route path="users" element={<AdminUsersPage />} />
+                    <Route path="faq" element={<AdminFaqPage />} />
                 </Route>
 
             </Route>

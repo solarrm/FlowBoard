@@ -27,7 +27,7 @@ const AdminUsersPage = () => {
     };
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <p>Загрузка...</p>;
     }
 
     return (
