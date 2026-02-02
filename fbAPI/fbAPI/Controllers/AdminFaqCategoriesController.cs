@@ -33,4 +33,23 @@ public class AdminFaqCategoriesController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var category = await _context.FAQCategories.FindAsync(id);
+        if (category == null)
+            return NotFound();
+
+        var isUsed = await _context.FAQAndCategories
+            .AnyAsync(x => x.CategoryId == id);
+
+        if (isUsed)
+            return BadRequest(new { message = "Категория используется в FAQ" });
+
+        _context.FAQCategories.Remove(category);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
 }

@@ -27,53 +27,70 @@ const AdminUsersPage = () => {
     };
 
     if (loading) {
-        return <p>Загрузка...</p>;
+        return <p className="text-gray-500">Загрузка...</p>;
     }
 
     return (
-        <div>
-            <h2>Users</h2>
+        <div className="max-w-6xl mx-auto space-y-6">
+            <h1 className="text-2xl font-semibold">Users</h1>
 
-            <table border="1" cellPadding="6" cellSpacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Login</th>
-                        <th>Email</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Active</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {users.map(user => (
-                        <tr key={user.userId}>
-                            <td>{user.login}</td>
-                            <td>{user.email}</td>
-                            <td>{user.userName}</td>
-
-                            <td>
-                                <select
-                                    value={user.role}
-                                    onChange={e => changeRole(user.userId, e.target.value)}
-                                >
-                                    <option value="user">user</option>
-                                    <option value="manager">manager</option>
-                                    <option value="admin">admin</option>
-                                </select>
-                            </td>
-
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    checked={user.isActive}
-                                    onChange={e => changeStatus(user.userId, e.target.checked)}
-                                />
-                            </td>
+            <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+                <table className="w-full text-sm">
+                    <thead className="bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-gray-400">
+                        <tr>
+                            <th className="px-4 py-3 text-left">Login</th>
+                            <th className="px-4 py-3 text-left">Email</th>
+                            <th className="px-4 py-3 text-left">Name</th>
+                            <th className="px-4 py-3 text-left">Role</th>
+                            <th className="px-4 py-3 text-left">Active</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                        {users.map(user => (
+                            <tr
+                                key={user.userId}
+                                className="border-t border-gray-200 dark:border-slate-800"
+                            >
+                                <td className="px-4 py-3">{user.login}</td>
+                                <td className="px-4 py-3">{user.email}</td>
+                                <td className="px-4 py-3">{user.userName}</td>
+
+                                <td className="px-4 py-3">
+                                    <select
+                                        value={user.role}
+                                        onChange={e =>
+                                            changeRole(user.userId, e.target.value)
+                                        }
+                                        className="
+                                            rounded-md border
+                                            border-gray-300 dark:border-slate-700
+                                            bg-white dark:bg-slate-900
+                                            text-gray-900 dark:text-gray-100
+                                            px-2 py-1
+                                        "
+                                    >
+                                        <option value="user">user</option>
+                                        <option value="manager">manager</option>
+                                        <option value="admin">admin</option>
+                                    </select>
+                                </td>
+
+                                <td className="px-4 py-3">
+                                    <input
+                                        type="checkbox"
+                                        checked={user.isActive}
+                                        onChange={e =>
+                                            changeStatus(user.userId, e.target.checked)
+                                        }
+                                        className="h-4 w-4 accent-blue-600"
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

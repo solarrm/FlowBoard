@@ -35,12 +35,11 @@ public class AdminFaqController : ControllerBase
                 f.CreatedAt,
                 f.UpdatedAt,
                 Author = f.Author.UserName,
-                Categories = f.CategoriesLink
-                    .Select(c => new
-                    {
-                        c.Category.CategoryId,
-                        c.Category.CategoryName
-                    })
+                Categories = f.CategoriesLink.Select(c => new
+                {
+                    c.Category.CategoryId,
+                    c.Category.CategoryName
+                })
             })
             .ToListAsync();
 
@@ -53,9 +52,7 @@ public class AdminFaqController : ControllerBase
         var adminId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
         if (request.CategoryIds == null || !request.CategoryIds.Any())
-        {
-            return BadRequest(new { message = "Вопрос должен иметь хотя бы одну категорию" });
-        }
+            return BadRequest(new { message = "FAQ должен иметь хотя бы одну категорию" });
 
         var faq = new FAQ
         {
@@ -91,9 +88,7 @@ public class AdminFaqController : ControllerBase
             return NotFound();
 
         if (request.CategoryIds == null || !request.CategoryIds.Any())
-        {
-            return BadRequest(new { message = "Вопрос должен иметь хотя бы одну категорию" });
-        }
+            return BadRequest(new { message = "FAQ должен иметь хотя бы одну категорию" });
 
         faq.Question = request.Question;
         faq.Answer = request.Answer;
@@ -101,6 +96,7 @@ public class AdminFaqController : ControllerBase
         faq.UpdatedAt = DateTime.UtcNow;
 
         faq.CategoriesLink.Clear();
+
         foreach (var categoryId in request.CategoryIds)
         {
             faq.CategoriesLink.Add(new FAQAndCategory
@@ -116,20 +112,31 @@ public class AdminFaqController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var isUsed = await _context.FAQAndCategories
-            .AnyAsync(x => x.CategoryId == id);
+        var faq = await _context.FAQs
+            .Include(f => f.CategoriesLink)
+            .FirstOrDefaultAsync(f => f.FaqId == id);
 
-        if (isUsed)
-            return BadRequest(new { message = "Категория используется в некоторых вопросах" });
-
-        var category = await _context.FAQCategories.FindAsync(id);
-        if (category == null)
+        if (faq == null)
             return NotFound();
 
-        _context.FAQCategories.Remove(category);
-        await _context.SaveChangesAsync();
+        _context.FAQAndCategories.RemoveRange(faq.CategoriesLink);
+        _context.FAQs.Remove(faq);
 
+        await _context.SaveChangesAsync();
         return Ok();
     }
 
+    [HttpPut("{id}/status")]
+    public async Task<IActionResult> UpdateStatus(int id, [FromBody] bool isActive)
+    {
+        var faq = await _context.FAQs.FindAsync(id);
+        if (faq == null)
+            return NotFound();
+
+        faq.IsActive = isActive;
+        faq.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+        return Ok();
+    }
 }

@@ -13,6 +13,10 @@ const updateFaq = async (id, data) => {
     return api.put(`/api/admin/faq/${id}`, data);
 };
 
+const updateFaqStatus = async (id, isActive) => {
+    return api.put(`/api/admin/faq/${id}/status`, isActive);
+};
+
 const deleteFaq = async (id) => {
     return api.delete(`/api/admin/faq/${id}`);
 };
@@ -36,6 +40,7 @@ export default {
     getFaqs,
     createFaq,
     updateFaq,
+    updateFaqStatus,
     deleteFaq,
     getCategories,
     createCategory,
