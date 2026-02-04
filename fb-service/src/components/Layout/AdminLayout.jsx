@@ -10,13 +10,15 @@ const AdminLayout = () => {
     return (
         <div className="flex min-h-screen bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100">
             <aside className="w-60 border-r border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-6">
-                <h2 className="mb-8 text-lg font-semibold">
+                <h2 className="mb-8 text-lg text-center font-semibold">
                     Admin Panel
                 </h2>
 
                 <nav className="flex flex-col gap-2">
                     <AdminLink to="/admin/users" label="Users" />
                     <AdminLink to="/admin/faq" label="FAQ" />
+                    <AdminLink to="/admin/news" label="News" />
+
                 </nav>
             </aside>
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace fbAPI.Controllers;
+namespace fbAPI.Controllers.admin;
 
 [Route("api/admin")]
 [ApiController]
