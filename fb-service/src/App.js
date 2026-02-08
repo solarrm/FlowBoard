@@ -19,6 +19,7 @@ import AdminLayout from "./components/Layout/AdminLayout";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminFaqPage from "./pages/admin/AdminFaqPage";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
+import FaqPage from "./pages/FaqPage";
 
 function AppContent() {
     const { isAuthenticated, user, loading } = useAuth();
@@ -57,6 +58,7 @@ function AppContent() {
                 <Route path="notes/:id" element={<NoteEditor />} />
                 <Route path="chats" element={<ChatList />} />
                 <Route path="chats/:roomId" element={<ChatRoom />} />
+                <Route path="faq" element={<FaqPage />} />
 
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route path="users" element={<AdminUsersPage />} />

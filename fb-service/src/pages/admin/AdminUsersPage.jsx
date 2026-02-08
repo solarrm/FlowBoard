@@ -71,7 +71,6 @@ const AdminUsersPage = () => {
                                         "
                                     >
                                         <option value="user">user</option>
-                                        <option value="manager">manager</option>
                                         <option value="admin">admin</option>
                                     </select>
                                 </td>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rgo2odO7cew=",
+  "dgSpecHash": "DLL4jy8YPu4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\romak\\Desktop\\FlowBoard\\FlowBoardService\\fbAPI\\fbapi\\fbAPI.csproj",
+  "projectFilePath": "C:\\Users\\romak\\Data\\projects\\FlowBoard\\FlowBoardService\\fbAPI\\fbapi\\fbAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\romak\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\romak\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
