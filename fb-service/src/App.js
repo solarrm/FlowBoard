@@ -20,6 +20,8 @@ import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminFaqPage from "./pages/admin/AdminFaqPage";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
 import FaqPage from "./pages/FaqPage";
+import NewsPage from "./pages/NewsPage";
+import NewsDetailsPage from "./pages/NewsDetailsPage";
 
 function AppContent() {
     const { isAuthenticated, user, loading } = useAuth();
@@ -50,14 +52,22 @@ function AppContent() {
                 <Route index element={<Navigate to="/dashboard" replace />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="profile" element={<ProfileSettings />} />
+
                 <Route path="projects" element={<ProjectList />} />
                 <Route path="projects/:id" element={<ProjectDetail />} />
+
                 <Route path="tasks" element={<TaskList />} />
                 <Route path="tasks/:id" element={<TaskDetail />} />
+
                 <Route path="notes" element={<NotesList />} />
                 <Route path="notes/:id" element={<NoteEditor />} />
+
                 <Route path="chats" element={<ChatList />} />
                 <Route path="chats/:roomId" element={<ChatRoom />} />
+
+                <Route path="/news" element={<NewsPage />} />
+                <Route path="/news/:id" element={<NewsDetailsPage />} />
+
                 <Route path="faq" element={<FaqPage />} />
 
                 <Route path="/admin" element={<AdminLayout />}>
