@@ -12,10 +12,12 @@ using System.Security.Claims;
 public class AdminNewsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IWebHostEnvironment _env;
 
-    public AdminNewsController(ApplicationDbContext context)
+    public AdminNewsController(ApplicationDbContext context, IWebHostEnvironment env)
     {
         _context = context;
+        _env = env;
     }
 
     [HttpGet]
@@ -59,7 +61,7 @@ public class AdminNewsController : ControllerBase
         _context.Newses.Add(news);
         await _context.SaveChangesAsync();
 
-        return Ok();
+        return Ok(news.NewId);
     }
 
     [HttpPut("{id}")]
@@ -97,6 +99,41 @@ public class AdminNewsController : ControllerBase
         return Ok();
     }
 
+    [HttpPost("{id}/upload-image")]
+    public async Task<IActionResult> UploadImage(int id, IFormFile file)
+    {
+        var news = await _context.Newses.FindAsync(id);
+        if (news == null)
+            return NotFound();
+
+        if (file == null || file.Length == 0)
+            return BadRequest("Файл не выбран");
+
+        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads/news");
+        Directory.CreateDirectory(uploadsFolder);
+
+        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+        var fullPath = Path.Combine(uploadsFolder, fileName);
+
+        using (var stream = new FileStream(fullPath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        // удаляем старый файл если был
+        if (!string.IsNullOrEmpty(news.Image))
+        {
+            var oldPath = Path.Combine(_env.WebRootPath, news.Image.TrimStart('/'));
+            if (System.IO.File.Exists(oldPath))
+                System.IO.File.Delete(oldPath);
+        }
+
+        news.Image = $"/uploads/news/{fileName}";
+        await _context.SaveChangesAsync();
+
+        return Ok(news.Image);
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Remove(int id)
     {
@@ -104,8 +141,39 @@ public class AdminNewsController : ControllerBase
         if (news == null)
             return NotFound();
 
+        if (!string.IsNullOrEmpty(news.Image))
+        {
+            var fullPath = Path.Combine(_env.WebRootPath, news.Image.TrimStart('/'));
+            if (System.IO.File.Exists(fullPath))
+                System.IO.File.Delete(fullPath);
+        }
+
         _context.Newses.Remove(news);
         await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpDelete("{id}/image")]
+    public async Task<IActionResult> RemoveImage(int id)
+    {
+        var news = await _context.Newses.FindAsync(id);
+        if (news == null)
+            return NotFound();
+
+        if (!string.IsNullOrEmpty(news.Image))
+        {
+            var fullPath = Path.Combine(
+                _env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"),
+                news.Image.TrimStart('/')
+            );
+
+            if (System.IO.File.Exists(fullPath))
+                System.IO.File.Delete(fullPath);
+
+            news.Image = null;
+            await _context.SaveChangesAsync();
+        }
 
         return Ok();
     }

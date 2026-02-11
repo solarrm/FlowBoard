@@ -336,3 +336,4 @@ C:\Users\romak\Data\projects\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\ne
 C:\Users\romak\Data\projects\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\net9.0\fbAPI.pdb
 C:\Users\romak\Data\projects\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\net9.0\fbAPI.genruntimeconfig.cache
 C:\Users\romak\Data\projects\FlowBoard\FlowBoardService\fbAPI\fbapi\obj\Debug\net9.0\ref\fbAPI.dll
+C:\Users\romak\Data\projects\FlowBoard\FlowBoardService\fbAPI\fbapi\bin\Debug\net9.0\fbAPI.staticwebassets.runtime.json

@@ -24,7 +24,7 @@ const NewsDetailsPage = () => {
                 <img
                     src={news.image}
                     alt=""
-                    className="rounded-lg"
+                    className="w-full max-h-96 object-cover rounded"
                 />
             )}
 

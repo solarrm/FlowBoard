@@ -8,7 +8,7 @@ const AdminNewsPage = () => {
     const [form, setForm] = useState({
         title: "",
         content: "",
-        image: "",
+        image: null,
         isPublished: false
     });
 
@@ -26,16 +26,47 @@ const AdminNewsPage = () => {
             return;
         }
 
+        let newsId;
+
         if (editingId) {
-            await newsService.update(editingId, form);
+            await newsService.update(editingId, {
+                title: form.title,
+                content: form.content,
+                image: null,
+                isPublished: form.isPublished
+            });
+
+            newsId = editingId;
         } else {
-            await newsService.create(form);
+            const response = await newsService.create({
+                title: form.title,
+                content: form.content,
+                image: null,
+                isPublished: form.isPublished
+            });
+
+            newsId = response.data;
         }
 
-        setForm({ title: "", content: "", image: "", isPublished: false });
+        if (form.image instanceof File) {
+            const formData = new FormData();
+            formData.append("file", form.image);
+
+            await newsService.uploadImage(newsId, formData);
+        }
+
+        setForm({
+            title: news.title,
+            content: news.content ?? "",
+            image: news.image ?? "",
+            isPublished: news.isPublished
+        });
         setEditingId(null);
         loadData();
     };
+
+
+
 
     const editNews = (n) => {
         setEditingId(n.newId);
@@ -82,11 +113,35 @@ const AdminNewsPage = () => {
                 />
 
                 <input
-                    placeholder="URL изображения (необязательно)"
-                    value={form.image}
-                    onChange={e => setForm({ ...form, image: e.target.value })}
+                    type="file"
+                    accept="image/*"
+                    onChange={e =>
+                        setForm({ ...form, image: e.target.files[0] })
+                    }
                     className="w-full rounded-md border px-3 py-2 dark:bg-slate-900"
                 />
+
+                {editingId && typeof form.image === "string" && form.image && (
+                    <div className="space-y-2">
+                        <img
+                            src={form.image}
+                            alt=""
+                            className="max-h-48 rounded"
+                        />
+
+                        <button
+                            type="button"
+                            onClick={async () => {
+                                await newsService.removeImage(editingId);
+                                setForm({ ...form, image: null });
+                                loadData();
+                            }}
+                            className="text-red-600 text-sm hover:underline"
+                        >
+                            Удалить изображение
+                        </button>
+                    </div>
+                )}
 
                 <div className="flex justify-between items-center">
                     <label className="flex gap-2 text-sm">

@@ -17,45 +17,49 @@ public class PublicNewsController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var news = await _context.Newses
-            .Where(n => n.IsPublished)
             .Include(n => n.Author)
-            .OrderByDescending(n => n.PublishedAt ?? n.CreatedAt)
-            .Select(n => new
-            {
-                n.NewId,
-                n.Title,
-                n.Content,
-                n.Image,
-                n.CreatedAt,
-                n.PublishedAt,
-                Author = n.Author.UserName
-            })
+            .OrderByDescending(n => n.CreatedAt)
             .ToListAsync();
 
-        return Ok(news);
+        var result = news.Select(n => new
+        {
+            n.NewId,
+            n.Title,
+            n.Content,
+            Image = n.Image != null
+                ? $"{Request.Scheme}://{Request.Host}{n.Image}"
+                : null,
+            n.IsPublished,
+            n.CreatedAt,
+            n.PublishedAt,
+            Author = n.Author.UserName
+        });
+
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         var news = await _context.Newses
-            .Where(n => n.NewId == id && n.IsPublished)
             .Include(n => n.Author)
-            .Select(n => new
-            {
-                n.NewId,
-                n.Title,
-                n.Content,
-                n.Image,
-                n.CreatedAt,
-                n.PublishedAt,
-                Author = n.Author.UserName
-            })
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(n => n.NewId == id && n.IsPublished);
 
         if (news == null)
             return NotFound();
 
-        return Ok(news);
+        return Ok(new
+        {
+            news.NewId,
+            news.Title,
+            news.Content,
+            Image = news.Image != null
+                ? $"{Request.Scheme}://{Request.Host}{news.Image}"
+                : null,
+            news.CreatedAt,
+            news.PublishedAt,
+            Author = news.Author.UserName
+        });
     }
+
 }

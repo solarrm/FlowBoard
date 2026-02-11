@@ -29,14 +29,6 @@ const NewsPage = () => {
                         to={`/news/${n.newId}`}
                         className="block rounded-lg border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4 hover:shadow"
                     >
-                        {n.image && (
-                            <img
-                                src={n.image}
-                                alt=""
-                                className="mb-3 max-h-64 w-full object-cover rounded"
-                            />
-                        )}
-
                         <h2 className="text-lg font-medium">{n.title}</h2>
 
                         <p className="text-sm text-gray-500 mt-1">

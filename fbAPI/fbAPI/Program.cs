@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+builder.WebHost.UseWebRoot("wwwroot");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -87,6 +88,8 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 app.MapHub<ChatHub>("/chatHub");
+
+app.UseStaticFiles();
 
 app.UseCors("FrontendPolicy");
 

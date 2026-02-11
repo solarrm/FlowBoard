@@ -5,8 +5,14 @@ const getAll = async () => {
     return res.data;
 };
 
-const create = async (data) => {
+const create = (data) => {
     return api.post("/api/admin/news", data);
+};
+
+const uploadImage = (id, formData) => {
+    return api.post(`/api/admin/news/${id}/upload-image`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+    });
 };
 
 const update = async (id, data) => {
@@ -21,10 +27,16 @@ const remove = async (id) => {
     return api.delete(`/api/admin/news/${id}`);
 };
 
+const removeImage = (id) => {
+    return api.delete(`/api/admin/news/${id}/image`);
+};
+
 export default {
     getAll,
     create,
+    uploadImage,
     update,
     toggleStatus,
-    remove
+    remove,
+    removeImage
 };
