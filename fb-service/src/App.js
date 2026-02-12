@@ -19,6 +19,7 @@ import AdminLayout from "./components/Layout/AdminLayout";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminFaqPage from "./pages/admin/AdminFaqPage";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
+import AdminInfoPage from "./pages/admin/AdminInfoPage";
 import FaqPage from "./pages/FaqPage";
 import NewsPage from "./pages/NewsPage";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
@@ -74,6 +75,7 @@ function AppContent() {
                     <Route path="users" element={<AdminUsersPage />} />
                     <Route path="faq" element={<AdminFaqPage />} />
                     <Route path="news" element={<AdminNewsPage />} />
+                    <Route path="info" element={<AdminInfoPage />} />
                 </Route>
 
             </Route>

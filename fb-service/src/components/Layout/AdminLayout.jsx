@@ -18,6 +18,7 @@ const AdminLayout = () => {
                     <AdminLink to="/admin/users" label="Users" />
                     <AdminLink to="/admin/faq" label="FAQ" />
                     <AdminLink to="/admin/news" label="News" />
+                    <AdminLink to="/admin/info" label="Info" />
 
                 </nav>
             </aside>
