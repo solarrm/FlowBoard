@@ -21,6 +21,7 @@ import AdminFaqPage from "./pages/admin/AdminFaqPage";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
 import AdminInfoPage from "./pages/admin/AdminInfoPage";
 import FaqPage from "./pages/FaqPage";
+import AboutPage from "./pages/AboutPage";
 import NewsPage from "./pages/NewsPage";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 
@@ -70,6 +71,8 @@ function AppContent() {
                 <Route path="/news/:id" element={<NewsDetailsPage />} />
 
                 <Route path="faq" element={<FaqPage />} />
+
+                <Route path="about" element={<AboutPage />} />
 
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route path="users" element={<AdminUsersPage />} />
