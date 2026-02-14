@@ -68,7 +68,7 @@ const FaqPage = () => {
                             {f.question}
                         </summary>
 
-                        <p className="mt-3 text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap">
+                        <p className="mt-3 text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
                             {f.answer}
                         </p>
 

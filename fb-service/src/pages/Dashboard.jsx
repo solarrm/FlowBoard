@@ -41,7 +41,7 @@ function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                <div className="bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow">
                     <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                         📁 Недавние проекты
                     </h2>
@@ -69,7 +69,7 @@ function Dashboard() {
                     )}
                 </div>
 
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                <div className="bg-gray-200 dark:bg-gray-800 p-6 rounded-lg shadow">
                     <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                         ✅ Недавние задачи
                     </h2>

@@ -8,11 +8,11 @@ const MainLayout = ({ user }) => {
     return (
         <div className={`min-h-screen ${theme === 'dark'
                 ? 'bg-gray-900 text-white'
-                : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100'
+                : 'bg-white'
             }`}>
             <header className={`bg-white/700 backdrop-blur-xl border-b ${theme === 'dark'
                     ? 'border-gray-700/50 bg-gray-800/80'
-                    : 'border-gray-100'
+                    : 'border-gray-300/50 bg-gray-200'
                 } sticky top-0 z-50 shadow-xl`}>
                 <div className="max-w-7xl mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
@@ -46,7 +46,7 @@ const MainLayout = ({ user }) => {
 
                             <button
                                 onClick={() => navigate('/projects')}
-                                className="bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 font-medium py-2 px-6 rounded-xl transition-all duration-200 hover:shadow-md dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                                className="bg-white hover:bg-gray-400 border border-gray-400 text-gray-700 font-medium py-2 px-6 rounded-xl transition-all duration-200 hover:shadow-md dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:bg-gray-900 dark:border-gray-900"
                             >
                                 Проекты
                             </button>
